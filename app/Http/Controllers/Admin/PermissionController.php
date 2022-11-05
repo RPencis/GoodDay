@@ -22,7 +22,7 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function index()
     {
@@ -87,6 +87,6 @@ class PermissionController extends Controller
     {
         $permission->delete();
         return redirect()->route('permission.index')
-            ->with('message', __('Permission deleted     successfully'));
+            ->with('message', __('Permission deleted successfully'));
     }
 }

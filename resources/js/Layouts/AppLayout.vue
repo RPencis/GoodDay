@@ -49,17 +49,17 @@ const logout = () => {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('blog')" :active="route().current('blog')">
+                                <NavLink v-if="can('blog list')" :href="route('blog.index')" :active="route().current('blog.index')">
                                     Blog
                                 </NavLink>
-                                <NavLink :href="route('news')" :active="route().current('news')">
+                                <NavLink v-if="can('news list')" :href="route('news.index')" :active="route().current('news.index')">
                                     News
                                 </NavLink>
-                                <NavLink v-if="can('permission list')" :href="route('permission.index')" :active="route().current('permission.index')">
+                                <!-- <NavLink v-if="can('permission list')" :href="route('permission.index')" :active="route().current('permission.index')">
                                     Permissions
-                                </NavLink>
+                                </NavLink> -->
                                 <NavLink v-if="can('role list')" :href="route('role.index')" :active="route().current('role.index')">
-                                    Roles
+                                    Permissions
                                 </NavLink>
                             </div>
                         </div>
@@ -144,16 +144,16 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('blog')" :active="route().current('blog')">
+                        <ResponsiveNavLink v-if="can('blog list')" :href="route('blog.index')" :active="route().current('blog.index')">
                             Blog
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('news')" :active="route().current('news')">
+                        <ResponsiveNavLink v-if="can('news list')" :href="route('news.index')" :active="route().current('news.index')">
                             News
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('permission.index')" :active="route().current('permission.index')">
+                        <!-- <ResponsiveNavLink v-if="can('permission list')" :href="route('permission.index')" :active="route().current('permission.index')">
                             Permissions
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('role.index')" :active="route().current('role.index')">
+                        </ResponsiveNavLink> -->
+                        <ResponsiveNavLink v-if="can('role list')" :href="route('role.index')" :active="route().current('role.index')">
                             Roles
                         </ResponsiveNavLink>
                     </div>

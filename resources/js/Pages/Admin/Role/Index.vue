@@ -53,15 +53,6 @@ function destroy(id) {
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="flex flex-col mt-8">
-                            <!-- add -->
-                            <div class="d-print-none with-border mb-8">
-                                <div v-if="can.create" class="d-print-none with-border mb-8">
-                                    <Link :href="route('role.create')"
-                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Add Role</Link>
-                                </div>
-                            </div>
-
                             <div class="py-2">
                                 <div class="min-w-full border-b border-gray-200 shadow overflow-x-auto">
                                     <!-- search -->
@@ -107,20 +98,10 @@ function destroy(id) {
                                                     class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
                                                     <div class="flex">
                                                         <Link v-if="can.edit"
-                                                            :href="route('role.edit', role.id)"
-                                                            class="inline-flex items-center px-4 py-2 text-white mr-4 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150 px-4 py-2 text-white">
-                                                            Edit
-                                                        </Link>
-                                                        <Link v-if="can.edit"
                                                             :href="route('role.permissions', role.id)"
                                                             class="inline-flex items-center px-4 py-2 text-white mr-4 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150 px-4 py-2 text-white">
                                                             Permissions
                                                         </Link>
-                                                        <PrimaryButton v-if="can.delete"
-                                                            class="px-4 py-2 text-white bg-red-600"
-                                                            @click="destroy(role.id)">
-                                                            Delete
-                                                        </PrimaryButton>
                                                     </div>
                                                 </td>
                                             </tr>

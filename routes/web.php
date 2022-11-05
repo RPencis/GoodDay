@@ -35,17 +35,8 @@ Route::middleware([
     })->name('dashboard');
 
     //BLOG routes
-    Route::get('/blog', function () {
-        return Inertia::render('Blog/Show');
-    })->name('blog');
-
-    //PERMISSION routes
-    // Route::get('/permissions', function () {
-    //     return Inertia::render('Permissions/Show');
-    // })->name('permissions');
+    Route::resource('blog', 'App\Http\Controllers\BlogController');
 
     //NEWS routes
-    Route::get('/news', function () {
-        return Inertia::render('News/Show');
-    })->name('news');
+    Route::resource('news', 'App\Http\Controllers\NewsController');
 });
