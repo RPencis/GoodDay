@@ -13,11 +13,10 @@ class RolesController extends \App\Http\Controllers\Controller
 {
     public function __construct()
     {
-        $this->middleware('can:role list', ['only' => ['index', 'show','permissions']]);
+        $this->middleware('can:role list', ['only' => ['index', 'show']]);
         $this->middleware('can:role create', ['only' => ['create', 'store']]);
-        $this->middleware('can:role edit', ['only' => ['edit', 'update']]);
+        $this->middleware('can:role edit', ['only' => ['edit', 'update','permissions','permissionsStore']]);
         $this->middleware('can:role delete', ['only' => ['destroy']]);
-        // $this->middleware('can:role permissions', ['only' => ['permissions']]);
     }
 
     /**

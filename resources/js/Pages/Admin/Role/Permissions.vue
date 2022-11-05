@@ -62,8 +62,7 @@ function check(optionId, checked) {
                     <div class="p-6 bg-white border-b border-gray-200">
                         <form @submit.prevent="form.put(route('role.permissionsStore', this.role.id))">
                             <div class="flex items-center justify-center">
-                                <div
-                                    class="flex flex-col  justify-center w-64 border-2 border-gray-400 p-8 rounded-lg ">
+                                <div class="flex flex-col  justify-center w-64 border-2 border-gray-400 p-8 rounded-lg ">
                                     <label class="" v-for="option in permissionsOptions">
                                         <Checkbox :checked="permissionsEnabled.includes(option.id)"
                                             @update:checked="check(option.id, $event)" :key="option"
