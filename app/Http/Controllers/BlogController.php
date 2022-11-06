@@ -12,7 +12,7 @@ class BlogController extends Controller
 
     public function __construct()
     {
-        $this->middleware('can:blog list', ['only' => ['index', 'show']]);
+        $this->middleware('can:blog list', ['only' => ['index']]);
         $this->middleware('can:blog create', ['only' => ['create', 'store']]);
         $this->middleware('can:blog edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:blog delete', ['only' => ['destroy']]);
@@ -26,12 +26,12 @@ class BlogController extends Controller
     {
         $blogs = (new Blogs)->newQuery();
         if (request()->has('search')) {
-            $blogs->where('name', 'Like', '%' . request()->input('search') . '%');
+            $blogs->where('title', 'Like', '%' . request()->input('search') . '%');
         }
 
         $blogs->latest();
 
-        $blogs = $blogs->paginate(3)->onEachSide(2);
+        $blogs = $blogs->paginate(10)->onEachSide(2);
 
         return Inertia::render('Blog/Index', [
             'blogs' => $blogs,

@@ -42,7 +42,7 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
@@ -55,9 +55,9 @@ const logout = () => {
                                 <NavLink v-if="can('news list')" :href="route('news.index')" :active="route().current('news.index')">
                                     News
                                 </NavLink>
-                                <!-- <NavLink v-if="can('permission list')" :href="route('permission.index')" :active="route().current('permission.index')">
-                                    Permissions
-                                </NavLink> -->
+                                <NavLink v-if="can('user list')" :href="route('user-roles.index')" :active="route().current('user-roles.index')">
+                                    Users
+                                </NavLink>
                                 <NavLink v-if="can('role list')" :href="route('role.index')" :active="route().current('role.index')">
                                     Permissions
                                 </NavLink>
@@ -66,7 +66,7 @@ const logout = () => {
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
+                            <div v-if="null !== $page.props.user" class="ml-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -75,6 +75,7 @@ const logout = () => {
 
                                         <span v-else class="inline-flex rounded-md">
                                             <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                
                                                 {{ $page.props.user.name }}
 
                                                 <svg
@@ -150,11 +151,11 @@ const logout = () => {
                         <ResponsiveNavLink v-if="can('news list')" :href="route('news.index')" :active="route().current('news.index')">
                             News
                         </ResponsiveNavLink>
-                        <!-- <ResponsiveNavLink v-if="can('permission list')" :href="route('permission.index')" :active="route().current('permission.index')">
-                            Permissions
-                        </ResponsiveNavLink> -->
+                        <ResponsiveNavLink v-if="can('permission list')" :href="route('user-roles.index')" :active="route().current('user-roles.index')">
+                            Users
+                        </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="can('role list')" :href="route('role.index')" :active="route().current('role.index')">
-                            Roles
+                            Permissions
                         </ResponsiveNavLink>
                     </div>
 
@@ -165,7 +166,7 @@ const logout = () => {
                                 <img class="h-10 w-10 rounded-full object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                             </div>
 
-                            <div>
+                            <div v-if="null !== $page.props.user">
                                 <div class="font-medium text-base text-gray-800">
                                     {{ $page.props.user.name }}
                                 </div>

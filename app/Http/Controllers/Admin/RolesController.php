@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
-use App\Http\Requests\Admin\StorePermissionRequest;
-use App\Http\Requests\Admin\UpdatePermissionRequest;
 
 class RolesController extends \App\Http\Controllers\Controller
 {
@@ -74,7 +72,7 @@ class RolesController extends \App\Http\Controllers\Controller
         foreach($rolePermissions as $rolePermission){
             $permissionsEnabled[] = $rolePermission->id;
         }
-        // dd($permissionsEnabled,$permissionsOptions);
+        
         return Inertia::render('Admin/Role/Permissions', [
             'role' => $role,
             'permissionsEnabled' => $permissionsEnabled,

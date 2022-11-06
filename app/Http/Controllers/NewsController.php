@@ -11,7 +11,7 @@ class NewsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:news list', ['only' => ['index', 'show']]);
+        $this->middleware('can:news list', ['only' => ['index']]);
         $this->middleware('can:news create', ['only' => ['create', 'store']]);
         $this->middleware('can:news edit', ['only' => ['edit', 'update']]);
         $this->middleware('can:news delete', ['only' => ['destroy']]);
@@ -25,12 +25,12 @@ class NewsController extends Controller
     {
         $news = (new News)->newQuery();
         if (request()->has('search')) {
-            $news->where('name', 'Like', '%' . request()->input('search') . '%');
+            $news->where('title', 'Like', '%' . request()->input('search') . '%');
         }
 
         $news->latest();
 
-        $news = $news->paginate(3)->onEachSide(2);
+        $news = $news->paginate(10)->onEachSide(2);
 
         return Inertia::render('News/Index', [
             'allNews' => $news,

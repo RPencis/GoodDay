@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Pagination from "@/Components/Admin/Pagination.vue";
+import Sort from "@/Components/Admin/Sort.vue";
 
 const props = defineProps({
     allNews: {
@@ -75,32 +76,54 @@ function destroy(id) {
                                             </div>
                                         </div>
                                     </form>
-                                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 lg:gap-4">
-                                        <div class="p-4 rounded-md flex items-center justify-center"
-                                            v-for="news in allNews.data" :key="news.id">
-                                            <div class="grid grid-rows-4 grid-flow-col gap-4">
-                                                <div>
-                                                    <a :href="route('news.show', news.id)"
-                                                        class="no-underline hover:underline text-cyan-600 dark:text-cyan-400">
-                                                        {{ news.title }}
-                                                    </a>
-                                                </div>
-                                                <div>{{ news.short_description }}</div>
-                                                <div>
-                                                    <Link v-if="can.edit && user.id == news.user_create"
-                                                        :href="route('news.edit', news.id)"
-                                                        class="inline-flex items-center px-4 py-2 text-white mr-4 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150 px-4 py-2 text-white">
-                                                    Edit
-                                                    </Link>
-                                                    <PrimaryButton v-if="can.delete && user.id == news.user_create"
-                                                        class="px-4 py-2 text-white bg-red-600"
-                                                        @click="destroy(news.id)">
-                                                        Delete
-                                                    </PrimaryButton>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <table class="border-collapse table-auto w-full text-sm">
+                                        <thead>
+                                            <tr>
+                                                <th
+                                                    class="py-2 px-4 bg-gray-50 font-bold uppercase text-sm text-grey-dark border-b border-grey-light text-left">
+                                                    <Sort label="Title" attribute="title" />
+                                                </th>
+                                                <th class="py-2 px-4 bg-gray-50 font-bold uppercase text-sm text-grey-dark border-b border-grey-light text-left">
+                                                    Short Description
+                                                </th>
+                                                <th
+                                                    class="py-2 px-4 bg-gray-50 font-bold uppercase text-sm text-grey-dark border-b border-grey-light text-left">
+                                                    Actions
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white dark:bg-slate-800">
+                                            <tr v-for="news in allNews.data" :key="news.id">
+                                                <td
+                                                    class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                    <div class="text-sm text-gray-900">
+                                                        <a :href="route('news.show', news.id)"
+                                                            class="no-underline hover:underline text-cyan-600 dark:text-cyan-400">{{
+                                                                    news.title
+                                                            }}</a>
+                                                    </div>
+                                                </td>
+                                                <td class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                    {{news.short_description}}
+                                                </td>
+                                                <td
+                                                    class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
+                                                    <div class="flex">
+                                                        <Link v-if="can.edit && news.user_create == user.id"
+                                                            :href="route('news.edit', news.id)"
+                                                            class="inline-flex items-center px-4 py-2 text-white mr-4 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150 px-4 py-2 text-white">
+                                                        Edit
+                                                        </Link>
+                                                        <PrimaryButton v-if="can.delete && news.user_create == user.id"
+                                                            class="px-4 py-2 text-white bg-red-600"
+                                                            @click="destroy(news.id)">
+                                                            Delete
+                                                        </PrimaryButton>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="py-8">
                                     <Pagination class="mt-6" :data="allNews" />
